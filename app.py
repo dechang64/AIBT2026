@@ -10,6 +10,16 @@ hide_css = """
     [data-testid="stToolbar"], [data-testid="stHeader"], [data-testid="stSidebar"],
     #MainMenu, footer { display: none !important; }
     .block-container { padding-top: 0; padding-bottom: 0; max-width: 100%; }
+    /* Force iframe to fill container width on all devices */
+    [data-testid="stComponent"] iframe,
+    .stComponent iframe,
+    .st-emotion-cache-1wqr5o0 iframe {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+    @media (max-width: 768px) {
+        .block-container { padding-left: 0.5rem; padding-right: 0.5rem; }
+    }
 </style>
 """
 st.markdown(hide_css, unsafe_allow_html=True)
@@ -27,4 +37,4 @@ for i in range(20):  # scan up to 20 PDFs
             b64 = base64.b64encode(pf.read()).decode()
         html = html.replace(placeholder, f"data:application/pdf;base64,{b64}")
 
-components.html(html, height=6000, scrolling=True, use_container_width=True)
+components.html(html, height=6000, scrolling=True)
